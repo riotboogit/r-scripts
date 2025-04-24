@@ -1,3 +1,4 @@
+# using basic r libraries
 # load data #####
 
 setwd("C:/work/school/rProgramming")
@@ -9,6 +10,7 @@ dfSalaries <- read.csv("data/Salaries.csv")
 dfDept <- read.csv("data/Dept.csv")
 #get DOB
 dfDOB <- read.csv("data/DOB.csv")
+View(dfDOB)
 
 # combine data #####
 dfCombined <- merge(dfNames, dfSalaries, by = "ID", all = TRUE)
@@ -20,7 +22,10 @@ print(dfCombined)
 dfCombined <- merge(dfCombined, dfDOB, by = "ID", all = TRUE)
 print(dfCombined)
 
-#compute age 
+#compute age from dob
+#add the column to the dataframe
+dfCombined <- cbind(dfCombined, Age = NA)
+
 # Get the current date
 current_date <- Sys.Date()
 
@@ -29,6 +34,13 @@ formatted_date <- format(current_date, "%m/%d/%Y")
 
 # Print the formatted date
 print(formatted_date)
+
+for(i in 1:nrow(dfCombined)) {
+  print(paste("Processing row:", i))
+  print(dfCombined[i, ])
+}
+
+
 #basic visualization #####
 Salary <- dfCombined$Salary
 hist(Salary)
